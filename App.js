@@ -35,13 +35,13 @@ export default function App() {
           }}>
           <TouchableOpacity
             style={{
-              flex: 0.1,
+              flex: 0.4,
               alignSelf: 'flex-end',
               alignItems: 'center',
             }}
             onPress={() => {
               setCameraType(
-                type === Camera.Constants.Type.back
+                cameraType === Camera.Constants.Type.back
                   ? Camera.Constants.Type.front
                   : Camera.Constants.Type.back
               );
