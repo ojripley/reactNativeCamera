@@ -4,9 +4,17 @@ import { render } from 'react-dom';
 import { Camera } from 'expo-camera';
 
 export default function App() {
-
+  
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  
+  const takePicture = async () => {
+    if (this.camera) {
+      this.camera.takePictureAsync(photo => {
+        console.log(photo);
+      });
+    }
+  }
 
   useEffect(() => {
     console.log('asking for permission');
@@ -17,7 +25,7 @@ export default function App() {
       setHasPermission(status === 'granted');
     })();
   }, []);
-
+  
   if (hasPermission === null) {
     return <View></View>;
   }
@@ -35,9 +43,9 @@ export default function App() {
           }}>
           <TouchableOpacity
             style={{
-              flex: 0.4,
+              flex: 0.2,
               alignSelf: 'flex-end',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
             onPress={() => {
               setCameraType(
@@ -46,19 +54,24 @@ export default function App() {
                   : Camera.Constants.Type.back
               );
             }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+            <Text style={{ fontSize: 18, marginBottom: 40, color: 'white' }}> Flip </Text>
           </TouchableOpacity>
+          {/* <Camera>
+            ref={ref => {
+              this.camera = ref;
+            }}
+          </Camera> */}
+            <TouchableOpacity
+              style={{
+                flex: 0.6,
+                alignSelf: 'flex-end',
+                alignItems: 'center'
+              }}
+              onPress={ takePicture }>
+              <Text style={{ fontSize: 18, marginBottom: 40, color: 'white' }}> Capture </Text>
+            </TouchableOpacity>
         </View>
       </Camera>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
