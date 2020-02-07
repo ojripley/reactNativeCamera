@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { render } from 'react-dom';
 import { Camera } from 'expo-camera';
@@ -7,11 +7,13 @@ export default function App() {
   
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  // const cameraRef = useRef(null);
   
   const takePicture = async () => {
+    console.log('say cheese');
     if (this.camera) {
       this.camera.takePictureAsync(photo => {
-        console.log(photo);
+        console.log('photo');
       });
     }
   }
@@ -56,20 +58,20 @@ export default function App() {
             }}>
             <Text style={{ fontSize: 18, marginBottom: 40, color: 'white' }}> Flip </Text>
           </TouchableOpacity>
-          {/* <Camera>
+          <Camera
             ref={ref => {
               this.camera = ref;
-            }}
-          </Camera> */}
+            }}>
             <TouchableOpacity
               style={{
                 flex: 0.6,
                 alignSelf: 'flex-end',
                 alignItems: 'center'
               }}
-              onPress={ takePicture }>
+              onPress={() => takePicture }>
               <Text style={{ fontSize: 18, marginBottom: 40, color: 'white' }}> Capture </Text>
             </TouchableOpacity>
+          </Camera>
         </View>
       </Camera>
     </View>
